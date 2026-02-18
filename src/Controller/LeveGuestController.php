@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\DatiLeve;
+use App\Model\Repository\DatiLeve;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;

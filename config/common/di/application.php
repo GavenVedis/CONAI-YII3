@@ -3,15 +3,28 @@
 declare(strict_types=1);
 
 use App\ApplicationParams;
+use App\User\IdentityRepository;
+use Yiisoft\Auth\IdentityRepositoryInterface;
+use Yiisoft\Definitions\Reference;
+use Yiisoft\Session\Session;
+use Yiisoft\Session\SessionInterface;
+use Yiisoft\User\CurrentUser;
 
 /** @var array $params */
 
 return [
     ApplicationParams::class => [
+        '__construct()' => $params['application'],
+    ],
+    SessionInterface::class => [
+        'class' => Session::class,
         '__construct()' => [
-            'name' => $params['application']['name'],
-            'charset' => $params['application']['charset'],
-            'locale' => $params['application']['locale'],
+            $params['session']['options'] ?? [],
+            $params['session']['handler'] ?? null,
         ],
+    ],
+    IdentityRepositoryInterface::class => IdentityRepository::class,
+    CurrentUser::class => [
+        'withSession()' => [Reference::to(SessionInterface::class)]
     ],
 ];

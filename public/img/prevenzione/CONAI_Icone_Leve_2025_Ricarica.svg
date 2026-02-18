@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <g>
+    <path d="M31.65,37.37h-15.1v7.49c0,3.05,2.47,5.52,5.52,5.52h13.15c2.75,0,5.02-2.01,5.44-4.64-4.66-.22-8.45-3.8-9.01-8.37Z" style="fill: #f22b57;"/>
+    <path d="M34.64,37.37c.53,2.96,3.03,5.23,6.1,5.41v-5.41h-6.1Z" style="fill: #f22b57;"/>
+  </g>
+  <line x1="40.74" y1="38.01" x2="40.74" y2="29.63" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <line x1="40.74" y1="42.79" x2="40.74" y2="38.01" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M32.69,50.38h2.53c2.75,0,5.03-2.01,5.45-4.64" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M32.69,50.38h-10.62c-3.05,0-5.52-2.47-5.52-5.52v-22.5c0-1.85,1.5-3.35,3.35-3.35h2.65v-3.59h-1" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M50.67,36.22h1.76l-3.22,3.43-3.22-3.43h1.72c0-3.63-2.95-6.59-6.59-6.59-1.51,0-2.9.51-4.01,1.37l-2.1-2.1c1.66-1.39,3.79-2.22,6.11-2.22,5.26,0,9.54,4.28,9.54,9.54M34.54,36.22c0,3.63,2.95,6.59,6.59,6.59,2.12,0,4.02-1.01,5.22-2.58l2.1,2.1c-1.75,2.1-4.38,3.43-7.32,3.43-5.26,0-9.54-4.28-9.54-9.54h-.03s-1.76,0-1.76,0l3.22-3.43,3.22,3.43h-1.69" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M40.74,26.67v-4.37c0-1.85-1.5-3.35-3.35-3.35h-2.65v-3.54h1" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <g>
+    <path d="M28.71,13.18l2.22-2.22c.28-.28.08-.75-.31-.75h-4.44c-.39,0-.58.47-.31.75l2.22,2.22c.17.17.45.17.62,0Z" style="fill: #f22b57;"/>
+    <path d="M28.71,26.48l2.22-2.22c.28-.28.08-.75-.31-.75h-4.44c-.39,0-.58.47-.31.75l2.22,2.22c.17.17.45.17.62,0Z" style="fill: #f22b57;"/>
+    <path d="M28.71,33.01l2.22-2.22c.28-.28.08-.75-.31-.75h-4.44c-.39,0-.58.47-.31.75l2.22,2.22c.17.17.45.17.62,0Z" style="fill: #f22b57;"/>
+    <path d="M28.71,19.83l2.22-2.22c.28-.28.08-.75-.31-.75h-4.44c-.39,0-.58.47-.31.75l2.22,2.22c.17.17.45.17.62,0Z" style="fill: #f22b57;"/>
+  </g>
+</svg>

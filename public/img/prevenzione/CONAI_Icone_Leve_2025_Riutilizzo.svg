@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <path d="M41.86,36.94c-.24.32-.51.65-.8.96M38.66,39.94c-2.53,1.72-6.13,3.12-11.2,3.91v5.85l-11.37-10.68,11.37-10.68v5.61s15.51-.15,14.77-11.97c0,0,3.3,6.1,1.23,11.96" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M10.54,42.4c1.64,0,2.98-1.34,2.98-2.98s-1.34-2.98-2.98-2.98-2.98,1.34-2.98,2.98,1.34,2.98,2.98,2.98" style="fill: #f22b57;"/>
+  <circle cx="10.54" cy="39.42" r="2.98" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M49.69,20.82c1.64,0,2.98-1.33,2.98-2.98s-1.34-2.98-2.98-2.98-2.98,1.33-2.98,2.98,1.34,2.98,2.98,2.98" style="fill: #f22b57;"/>
+  <path d="M19.97,18.57c2.53-2.29,6.55-4.19,12.8-5.17v-5.85l11.37,10.68-11.37,10.68v-5.61s-15.51.15-14.77,11.96c0,0-2.84-5.25-1.6-10.69M17.36,21.93c.14-.28.3-.55.47-.83M49.69,20.82c1.64,0,2.98-1.33,2.98-2.98s-1.34-2.98-2.98-2.98-2.98,1.33-2.98,2.98,1.34,2.98,2.98,2.98Z" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+</svg>

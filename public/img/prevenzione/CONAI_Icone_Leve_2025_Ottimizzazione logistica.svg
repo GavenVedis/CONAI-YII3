@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <rect x="16.17" y="9.55" width="12.17" height="12.17" style="fill: none;"/>
+  <rect x="16.17" y="9.55" width="12.17" height="12.17" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <rect x="31.39" y="9.55" width="12.17" height="12.17" style="fill: none;"/>
+  <rect x="31.39" y="9.55" width="12.17" height="12.17" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <rect x="16.17" y="24.55" width="12.17" height="12.17" style="fill: none;"/>
+  <rect x="16.17" y="24.55" width="12.17" height="12.17" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <rect x="31.39" y="24.55" width="12.17" height="12.17" style="fill: none;"/>
+  <rect x="31.39" y="24.55" width="12.17" height="12.17" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <rect x="12.84" y="39.7" width="34.56" height="4.44" style="fill: none;"/>
+  <line x1="35.56" y1="44.15" x2="24.68" y2="44.15" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <polyline points="16.51 44.15 12.84 44.15 12.84 39.71 47.4 39.71 47.4 44.15 43.72 44.15" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M25.74,47.28c0,2.84-2.31,5.15-5.15,5.15s-5.15-2.3-5.15-5.15,2.3-5.15,5.15-5.15,5.15,2.3,5.15,5.15" style="fill: none;"/>
+  <circle cx="20.59" cy="47.28" r="5.15" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M44.79,47.28c0,2.84-2.31,5.15-5.15,5.15s-5.15-2.3-5.15-5.15,2.3-5.15,5.15-5.15,5.15,2.3,5.15,5.15" style="fill: none;"/>
+  <circle cx="39.64" cy="47.28" r="5.15" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M41.55,47.28c0,1.06-.86,1.91-1.91,1.91s-1.91-.86-1.91-1.91.86-1.91,1.91-1.91,1.91.86,1.91,1.91" style="fill: #f22b57;"/>
+  <circle cx="39.64" cy="47.28" r="1.91" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M22.51,47.28c0,1.06-.86,1.91-1.91,1.91s-1.91-.86-1.91-1.91.86-1.91,1.91-1.91,1.91.86,1.91,1.91" style="fill: #f22b57;"/>
+  <circle cx="20.59" cy="47.28" r="1.91" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M34.49,24.55v12.17M34.49,9.55v12.17M19.28,24.55v12.17M19.28,9.55v12.17" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+</svg>

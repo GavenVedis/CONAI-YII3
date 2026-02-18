@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <rect x="17.59" y="42.95" width="24.82" height="6.69" style="fill: #95d5f4;"/>
+  <line x1="17.59" y1="42.95" x2="42.41" y2="42.95" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <path d="M39.36,31.53c-.55-.51-1.41-.48-1.92.07l-6.09,6.54V9.75c0-.75-.61-1.36-1.36-1.36s-1.36.61-1.36,1.36v28.39l-6.07-6.54c-.51-.55-1.37-.58-1.92-.07-.55.51-.58,1.37-.07,1.92l8.42,9.07s.02,0,.02.02c.09.1.21.17.33.23.04.02.07.06.11.07.15.06.31.09.48.1.02,0,.04.01.06.01h0c.19,0,.37-.04.54-.11.02,0,.04-.03.06-.04.14-.07.27-.16.38-.27,0,0,.01,0,.02-.01l8.44-9.08c.51-.55.48-1.41-.07-1.92Z" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <polyline points="17.59 26.82 17.59 49.64 42.41 49.64 42.41 26.82" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <line x1="17.59" y1="26.82" x2="25.3" y2="26.82" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+  <line x1="34.7" y1="26.82" x2="42.41" y2="26.82" style="fill: none; stroke: #1951a0; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.2px;"/>
+</svg>

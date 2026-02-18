@@ -12,8 +12,6 @@ use Yiisoft\View\WebView;
  */
 
 $this->setTitle($applicationParams->name);
-var_dump($leve);
-die();
 ?>
 
 <div class="text-center">

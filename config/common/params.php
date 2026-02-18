@@ -3,12 +3,14 @@
 declare(strict_types=1);
 
 use App\ApplicationParams;
+use App\Utility\UtilityFaseTwo;
 use Yiisoft\Aliases\Aliases;
 use Yiisoft\Assets\AssetManager;
 use Yiisoft\Db\Mysql\Dsn;
 use Yiisoft\Definitions\Reference;
 use Yiisoft\Router\CurrentRoute;
 use Yiisoft\Router\UrlGeneratorInterface;
+use Yiisoft\User\CurrentUser;
 use Yiisoft\Yii\View\Renderer\CsrfViewInjection;
 
 return [
@@ -26,15 +28,18 @@ return [
             'aliases' => Reference::to(Aliases::class),
             'urlGenerator' => Reference::to(UrlGeneratorInterface::class),
             'currentRoute' => Reference::to(CurrentRoute::class),
+            'currentUser' => Reference::to(CurrentUser::class),
+            'utilityFaseTwo' => Reference::to(UtilityFaseTwo::class)
         ],
     ],
 
     'yiisoft/yii-view-renderer' => [
         'viewPath' => null,
-        'layout' => '@src/Layout/Main/layout.php',
+        'layout' => '@src/Layout/Conai/layout.php',
         'injections' => [
             Reference::to(CsrfViewInjection::class),
         ],
+        'aliases' => Reference::to(Aliases::class),
     ],
 
     'db.conai' => [
