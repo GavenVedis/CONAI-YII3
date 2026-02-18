@@ -27,4 +27,9 @@ final readonly class GenericController
         return $this->viewRenderer->render($this->aliases->get('@view/Pages/glossary'), []);
     }
 
+    public function contact(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
+    {
+        return $this->viewRenderer->render($this->aliases->get('@view/Pages/contact'), []);
+    }
+
 }

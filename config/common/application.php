@@ -7,5 +7,6 @@ return [
     'locale' => 'it',
     'name' => 'ECO TOOL CONAI',
     'nuova_homepage' => true,
-    'chatbot' => false
+    'chatbot' => false,
+    'conaiInfoMail' => 'ecotoolconai@conai.org'
 ];

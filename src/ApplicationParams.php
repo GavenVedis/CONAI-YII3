@@ -12,6 +12,7 @@ final readonly class ApplicationParams
         public string $charset = 'UTF-8',
         public string $locale = 'en',
         public bool $nuova_homepage = true,
-        public bool $chatbot = false
+        public bool $chatbot = false,
+        public string $conaiInfoMail = ''
     ) {}
 }

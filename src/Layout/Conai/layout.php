@@ -37,14 +37,14 @@ if ($currentUser->isGuest()) {
 }
 $menu_links = [
     ['title' => "Homepage", 'url_direct' => "/"],
-    ['title' => "Istruzioni per l'uso", 'url_direct' => '/Conai_EcoTool_istruzioni_03.pdf'],
-    ['title' => "Regolamento bando", 'url_direct' => "/Regolamento_2025.pdf"]
+    ['title' => "Istruzioni per l'uso", 'url_direct' => $aliases->get('@baseUrl/documents/Conai_EcoTool_istruzioni_03.pdf')],
+    ['title' => "Regolamento bando", 'url_direct' => $aliases->get('@baseUrl/documents/Regolamento_2025.pdf')]
 ];
 if (isset($currentUser->tipo_utente) && $currentUser->tipo_utente !== 'EDI') {
     $menu_links[] = ['title' => "Casi di esempio", 'url' => "site/esempi"];
 }
 $menu_links[] = ['title' => "Info e contatti", 'url' => "site/contact"];
-$menu_links[] = ['title' => "Informativa privacy", 'url_direct' => '/docs/privacy.pdf'];
+$menu_links[] = ['title' => "Informativa privacy", 'url_direct' => $aliases->get('@baseUrl/documents/privacy.pdf')];
 
 ?>
 <!DOCTYPE html>
@@ -172,7 +172,7 @@ $menu_links[] = ['title' => "Informativa privacy", 'url_direct' => '/docs/privac
                             <?php
                             $sub_url = '';
                             if (isset($menu_links[$i]['url'])) {
-                                $sub_url = "/index.php?r=" . $menu_links[$i]['url'];
+                                $sub_url = $menu_links[$i]['url'];
                             } elseif (isset($menu_links[$i]['url_direct'])) {
                                 $sub_url = $menu_links[$i]['url_direct'];
                             }
@@ -192,7 +192,7 @@ $menu_links[] = ['title' => "Informativa privacy", 'url_direct' => '/docs/privac
                                         <div class="overlap">
                                             <?php
                                             foreach ($menu_links[$i]['submenu']['voci'] as $submenu): ?>
-                                                <a class="text-wrapper-2" href="<?= "/index.php?r=" . $submenu['url'] ?>"><?= $submenu['title'] ?>
+                                                <a class="text-wrapper-2" href="<?= $submenu['url'] ?>"><?= $submenu['title'] ?>
                                                 </a>
                                             <?php
                                             endforeach; ?>

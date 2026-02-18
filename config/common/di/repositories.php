@@ -1,9 +1,9 @@
 <?php
 
+use App\Model\Repository\CasiSuccesso;
 use App\Model\Repository\DatiLeve;
 use App\Model\Repository\Utenti;
 use App\Model\Repository\UtentiDossier;
-use App\User\IdentityRepository;
 use Yiisoft\Definitions\Reference;
 
 return [
@@ -23,6 +23,13 @@ return [
 
     DatiLeve::class => [
         'class' => DatiLeve::class,
+        '__construct()' => [
+            'db' => Reference::to('db.conai_guest'),
+        ],
+    ],
+
+    CasiSuccesso::class => [
+        'class' => CasiSuccesso::class,
         '__construct()' => [
             'db' => Reference::to('db.conai_guest'),
         ],
