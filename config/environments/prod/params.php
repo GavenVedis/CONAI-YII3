@@ -7,6 +7,8 @@ return [
         'session' => [
             'options' => [
                 'cookie_secure' => 1,
+                'cookie_lifetime' => 0,
+                'gc_maxlifetime' => 3600,
             ],
             'handler' => null,
         ]

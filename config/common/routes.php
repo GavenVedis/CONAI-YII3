@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controller\DossierController;
 use App\Controller\GenericController;
 use App\Controller\GuestController;
 use App\Controller\SiteController;
@@ -14,10 +15,7 @@ return [
         ->action([SiteController::class, 'index'])
         ->name('site/index'),
 
-    Route::methods([Method::GET], '/view/{id}')
-        ->action([SiteController::class, 'view'])
-        ->name('site/view'),
-
+    /* site controller */
     Route::methods([Method::GET], '/site/ecopacking')
         ->action([GenericController::class, 'ecopacking'])
         ->name('site/ecopacking'),
@@ -30,6 +28,7 @@ return [
         ->action([GenericController::class, 'contact'])
         ->name('site/contact'),
 
+    /* guest controller */
     Route::methods([Method::GET], '/guest/successi')
         ->action([GuestController::class, 'successi'])
         ->name('guest/successi'),
@@ -54,7 +53,16 @@ return [
         ->action([GuestController::class, 'genera_pdf'])
         ->name('guest/generaPdf'),
 
-    Route::methods([Method::GET], '/leve-guest')
-        ->action([LeveGuestController::class, 'index'])
-        ->name('guest/leve'),
+    /* dossier controller */
+    Route::methods([Method::GET], '/dossier/index')
+        ->action([DossierController::class, 'index'])
+        ->name('dossier/index'),
+
+    Route::methods([Method::POST], '/dossier/login')
+        ->action([DossierController::class, 'login'])
+        ->name('dossier/login'),
+
+    Route::methods([Method::POST], '/dossier/checkUserExistance')
+        ->action([DossierController::class, 'checkUserExistance'])
+        ->name('dossier/checkUserExistance'),
 ];

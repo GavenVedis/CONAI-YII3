@@ -34,7 +34,7 @@ if (PHP_SAPI === 'cli-server') {
     }
 
     // Explicitly set for URLs with dot.
-    $_SERVER['SCRIPT_NAME'] = '/index.php';
+    $_SERVER['SCRIPT_NAME'] = '/login.php';
 }
 // Run HTTP application runner
 $runner = new HttpApplicationRunner(

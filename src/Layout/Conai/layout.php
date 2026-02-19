@@ -53,6 +53,7 @@ $menu_links[] = ['title' => "Informativa privacy", 'url_direct' => $aliases->get
     <meta charset="<?= Html::encode($applicationParams->charset) ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="<?= $csrf ?>">
     <link rel="icon" href="<?= $aliases->get('@baseUrl/img/conai_ico.png') ?>" type="image/x-icon">
     <title><?= Html::encode($this->getTitle()) ?></title>
     <?= $utilityFaseTwo->generaUrlHTML('/libraries-web/bootstrap/css/bootstrap.min.css', 'css') ?>
@@ -94,21 +95,20 @@ $menu_links[] = ['title' => "Informativa privacy", 'url_direct' => $aliases->get
                 <?php
                 if (!$currentUser->isGuest()): ?>
                     <?php
-                    $model = new UtenteDossier;
-                    $username = Yii::app()->session->get("utente_id");
-                    $account = $model->getDossierUserByUsername($username);
-                    if ($currentUser->tipo_utente !== 'EDI') {
+                $user_logged = $currentUser->getIdentity()->getUser();
+
+                    if ($user_logged->tipo_utente !== 'EDI') {
                         $menu_links[] = ['title' => 'I miei casi inviati', 'url' => 'dossier/casi&reset_filter=1'];
                         $menu_links[] = ['title' => 'I miei casi in bozza', 'url' => 'dossier/bozze&reset_filter=1'];
-                        if (Yii::app()->params['casi_successo']):
+                        if ($applicationParams->casi_successo):
                             $menu_links[] = ['title' => 'I miei casi di successo', 'url' => 'dossier/casi_successo&reset_filter=1'];
                         endif;
                         $menu_links[] = ['title' => 'Crea nuovo caso', 'url' => 'compare/new&nuovo_caso=1'];
                     } else {
                         $menu_links[] = ['title' => 'Crea Lettera', 'url' => 'admin/scheda'];
                     }
-                    $immagine_account = $model->getImageProfile($account['utentedossier_id']);
-                    if ($currentUser->tipo_utente === 'LCE' || $currentUser->tipo_utente === 'CON') {
+                    $immagine_account = $user_logged->immagine_profilo;
+                    if ($user_logged->tipo_utente === 'LCE' || $user_logged->tipo_utente === 'CON') {
                         $voci_menu_amministrazione = [
                             ['title' => 'Anagrafica Utente', 'url' => 'admin/utenti']
                         ];
@@ -150,7 +150,7 @@ $menu_links[] = ['title' => "Informativa privacy", 'url_direct' => $aliases->get
                                        name="header-immagine-account"/>
                             </div>
                             <div class="text-wrapper"
-                                 style="color: white; margin: 0 auto;"><?= $account["referente"] ?></div>
+                                 style="color: white; margin: 0 auto;"><?= $user_logged->referente ?></div>
                             <div class="rectangle"></div>
                             <div class="text-wrapper" style="margin-top: -30px;">
                                 <a href="/dossier/index">Il mio
@@ -336,7 +336,8 @@ $menu_links[] = ['title' => "Informativa privacy", 'url_direct' => $aliases->get
                 $(this).toggleClass('open');
             });
             <?php if (!$currentUser->isGuest()):
-            if ($currentUser->tipo_utente === 'LCE' || $currentUser->tipo_utente === 'CON'): ?>
+            $user_logged = $currentUser->getIdentity()->getUser();
+            if ($user_logged->tipo_utente === 'LCE' || $user_logged->tipo_utente === 'CON'): ?>
             $('.open-amministrazione').click(function() {
                 function animateRotate(angle, selector) {
                     const elem = $(selector);

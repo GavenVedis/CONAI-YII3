@@ -11,5 +11,8 @@ return [
     'conaiInfoMail' => 'ecotoolconai@conai.org',
     'successDestination' => "@public/success_images/",
     'mpsSuccessDestination' => "@public/success_mps_images/",
-    'domainName' => getenv('DOMAIN_NAME') . '/'
+    'domainName' => getenv('DOMAIN_NAME') . '/',
+    'casi_successo' => true,
+    'uploadDestination' => "@public/uploads/",
+    'adminEmail' => 'noreply@ecotoolconai.org'
 ];

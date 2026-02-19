@@ -16,7 +16,7 @@ $finder = (new Finder())
         $root . '/tests',
     ])
     ->append([
-        $root . '/public/index.php',
+        $root . '/public/login.php',
     ]);
 
 return (new Config())

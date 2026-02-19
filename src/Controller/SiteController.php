@@ -14,7 +14,6 @@ final readonly class SiteController
 {
     public function __construct(
         private ViewRenderer $viewRenderer,
-        private UtentiDossier $utentiDossier,
         private Aliases $aliases
     ) {
     }
@@ -25,10 +24,4 @@ final readonly class SiteController
             ->render($this->aliases->get('@view/HomePage/index'), []);
     }
 
-
-    public function view(ServerRequestInterface $request, CurrentRoute $currentRoute, LoggerInterface $logger): ResponseInterface
-    {
-        $id = $currentRoute->getArgument('id', 34);
-        return $this->viewRenderer->render(__DIR__ . '/HomePage/template', ['users' => $this->utentiDossier->findById($id)]);
-    }
 }

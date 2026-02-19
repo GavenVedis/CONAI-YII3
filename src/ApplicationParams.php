@@ -15,6 +15,9 @@ final readonly class ApplicationParams
         public bool $chatbot = false,
         public string $conaiInfoMail = '',
         public string $successDestination = '',
-        public string $domainName = ''
+        public string $domainName = '',
+        public bool $casi_successo = false,
+        public string $uploadDestination = '',
+        public string $adminEmail = ''
     ) {}
 }
