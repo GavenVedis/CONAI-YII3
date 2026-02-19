@@ -9,8 +9,8 @@ use Yiisoft\View\WebView;
  * @var WebView $this
  * @var ApplicationParams $applicationParams
  * @var Yiisoft\Aliases\Aliases $aliases
- * @var App\Model\Entity\CasiSuccessoDTO $caso
- * @var App\Model\Repository\DatiLeve $datiLeve
+ * @var \App\Model\Entity\Guest\CasiSuccessoDTO $caso
+ * @var \App\Model\Repository\Guest\DatiLeve $datiLeve
  * @var array $benefici
  * @var string $share_link
  */

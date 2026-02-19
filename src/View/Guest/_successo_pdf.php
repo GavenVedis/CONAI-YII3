@@ -3,8 +3,8 @@
 
 /**
  * @var App\Utility\UtilityFaseTwo $utilityFaseTwo
- * @var App\Model\Entity\CasiSuccessoDTO $caso
- * @var App\Model\Repository\DatiLeve $datiLeve
+ * @var \App\Model\Entity\Guest\CasiSuccessoDTO $caso
+ * @var \App\Model\Repository\Guest\DatiLeve $datiLeve
  * @var Yiisoft\Aliases\Aliases $aliases
  * @var array $benefici
  */

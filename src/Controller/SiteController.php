@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\Repository\UtentiDossier;
+use App\Model\Repository\Main\UtentiDossier;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;

@@ -1,7 +1,7 @@
 <?php
-namespace App\Model\Repository;
+namespace App\Model\Repository\Main;
 
-use App\Model\Entity\UtentiDossierDTO;
+use App\Model\Entity\Main\UtentiDossierDTO;
 use Yiisoft\Db\Connection\ConnectionInterface;
 use Yiisoft\Db\Query\Query;
 

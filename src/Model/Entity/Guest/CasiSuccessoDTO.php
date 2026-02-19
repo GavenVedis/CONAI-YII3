@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Entity;
+namespace App\Model\Entity\Guest;
 
 readonly class CasiSuccessoDTO
 {

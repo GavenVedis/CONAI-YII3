@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\ApplicationParams;
-use App\Model\Repository\CasiSuccesso;
-use App\Model\Repository\DatiLeve;
+use App\Model\Repository\Guest\CasiSuccesso;
+use App\Model\Repository\Guest\DatiLeve;
+use App\Model\Repository\Guest\StatisticheGuest;
+use App\Utility\UtilityFaseTwo;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,10 +14,12 @@ use Psr\Log\LoggerInterface;
 use Safe\Exceptions\UrlException;
 use TCPDF;
 use Yiisoft\Aliases\Aliases;
+use Yiisoft\DataResponse\DataResponse;
 use Yiisoft\Db\Exception\Exception;
 use Yiisoft\Db\Exception\InvalidConfigException;
 use Yiisoft\Http\Status;
 use Yiisoft\Router\CurrentRoute;
+use Yiisoft\User\CurrentUser;
 use Yiisoft\View\Exception\ViewNotFoundException;
 use Yiisoft\Yii\View\Renderer\ViewRenderer;
 
@@ -27,7 +31,10 @@ final readonly class GuestController
         private CasiSuccesso $casiSuccesso,
         private ApplicationParams $applicationParams,
         private DatiLeve $datiLeve,
-        private ResponseFactoryInterface $responseFactory
+        private ResponseFactoryInterface $responseFactory,
+        private StatisticheGuest $statisticheGuest,
+        private CurrentUser $currentUser,
+        private UtilityFaseTwo $utilityFaseTwo
     ) {
     }
 
@@ -36,8 +43,6 @@ final readonly class GuestController
      * @param CurrentRoute $currentRoute
      * @param LoggerInterface $logger
      * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidConfigException
      * @throws UrlException
      * @throws \Throwable
      */
@@ -57,6 +62,102 @@ final readonly class GuestController
         return $response
             ->withStatus(Status::PERMANENT_REDIRECT)
             ->withHeader('Location', $this->applicationParams->domainName);
+    }
+
+    /**
+     * @throws InvalidConfigException
+     * @throws \Throwable
+     * @throws Exception
+     */
+    public function getStatistiche(ServerRequestInterface $request, CurrentRoute $currentRoute, LoggerInterface $logger): ResponseInterface
+    {
+        $anno = (string)$currentRoute->getArgument('anno', date('Y'));
+        $statistiche = $this->statisticheGuest->findByAnno($anno);
+        $leve_attivate = [];
+
+        if (!$this->currentUser->isGuest()) {
+            if ($this->currentUser->tipo_utente === 'LCE' || $this->currentUser->tipo_utente === 'CON') {
+                $leve = json_decode($statistiche->leve_attivate);
+                foreach ($leve as $indice => $valore) {
+                    if ($valore == 0) continue;
+                    $dati_leva = $this->datiLeve->findByIdentificativo($indice);
+                    $leve_attivate[] = [
+                        'label' => $dati_leva->descrizione,
+                        'value' => $valore,
+                        'colore' => $dati_leva->colore_legenda
+                    ];
+                }
+            }
+        }
+        $contatori = [
+            ['id' => 0, 'value' => $statistiche->aziende_partecipanti],
+            ['id' => 1, 'value' => $statistiche->casi_presentati],
+            ['id' => 2, 'value' => $statistiche->casi_premiati],
+            ['id' => 3, 'value' => $statistiche->montepremi]
+        ];
+
+        $response = $this->responseFactory->createResponse();
+
+        return $this->utilityFaseTwo->responseAsJson($response, [
+            'contatore' => $contatori,
+            'leve_attivate' => $leve_attivate,
+            'benefici' => [
+                [
+                    'id' => 0,
+                    'value' => [
+                        'prima' => $statistiche->co2_prima,
+                        'dopo' => $statistiche->co2_dopo
+                    ],
+                ],
+                [
+                    'id' => 1,
+                    'value' => [
+                        'prima' => $statistiche->ger_prima,
+                        'dopo' => $statistiche->ger_dopo
+                    ]
+                ],
+                [
+                    'id' => 2,
+                    'value' => [
+                        'prima' => $statistiche->h2o_prima,
+                        'dopo' => $statistiche->h2o_dopo
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function statistiche(ServerRequestInterface $request, CurrentRoute $currentRoute, LoggerInterface $logger): ResponseInterface {
+        $anni = [];
+        list($statistiche, $benefici) = $this->statisticheGuest->getLast($anni);
+        $leve_attivate = [];
+        $is_admin = false;
+        if (!$this->currentUser->isGuest()) {
+            if ($this->currentUser->tipo_utente === 'LCE' || $this->currentUser->tipo_utente === 'CON') {
+                $is_admin = true;
+                $leve = json_decode($statistiche->leve_attivate);
+                foreach ($leve as $indice => $valore) {
+                    if ($valore == 0) continue;
+                    $dati_leva = $this->datiLeve->findByIdentificativo($indice);
+                    $leve_attivate[] = [
+                        'label' => $dati_leva->descrizione,
+                        'value' => $valore,
+                        'colore' => $dati_leva->colore_legenda
+                    ];
+                }
+            }
+        }
+        return $this->viewRenderer->render($this->aliases->get('@view/Guest/statistiche'), [
+            'anni' => $anni,
+            'aziende_partecipanti' => $statistiche->aziende_partecipanti,
+            'casi_presentati' => $statistiche->casi_presentati,
+            'casi_premiati' => $statistiche->casi_premiati,
+            'casi_incentivati' => $statistiche->casi_incentivati,
+            'montepremi' => $statistiche->montepremi,
+            'leve_attivate' => $leve_attivate,
+            'benefici' => $benefici,
+            'is_admin' => $is_admin
+        ]);
     }
 
     public function successi(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
@@ -117,9 +218,15 @@ final readonly class GuestController
         $pdf->writeHTML($html, true, false, true, false, '');
         $pdf->lastPage();
         $pdf->Output($caso->anno . "_" . mb_convert_encoding($caso->nome_prodotto, 'UTF-8', 'ISO-8859-1') . '.pdf', 'D');
+        die();
     }
 
-    private function renderSuccesso(int $id): \Yiisoft\DataResponse\DataResponse
+    /**
+     * @throws InvalidConfigException
+     * @throws \Throwable
+     * @throws Exception
+     */
+    private function renderSuccesso(int $id): DataResponse
     {
         list($caso, $benefici) = $this->casiSuccesso->generaParametriCasoSuccesso($id);
         return $this->viewRenderer->render($this->aliases->get('@view/Guest/successo'), [

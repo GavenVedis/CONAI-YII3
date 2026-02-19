@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Repository;
+namespace App\Model\Repository\Main;
 
 use Yiisoft\Db\Connection\ConnectionInterface;
 use Yiisoft\Db\Query\Query;

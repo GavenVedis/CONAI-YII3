@@ -1,9 +1,8 @@
 <?php
-namespace App\Model\Repository;
+namespace App\Model\Repository\Guest;
 
 use App\ApplicationParams;
-use App\Model\Entity\CasiSuccessoDTO;
-use App\Model\Entity\UtentiDossierDTO;
+use App\Model\Entity\Guest\CasiSuccessoDTO;
 use Yiisoft\Aliases\Aliases;
 use Yiisoft\Db\Connection\ConnectionInterface;
 use Yiisoft\Db\Exception\Exception;

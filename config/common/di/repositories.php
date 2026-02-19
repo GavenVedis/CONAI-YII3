@@ -1,9 +1,10 @@
 <?php
 
-use App\Model\Repository\CasiSuccesso;
-use App\Model\Repository\DatiLeve;
-use App\Model\Repository\Utenti;
-use App\Model\Repository\UtentiDossier;
+use App\Model\Repository\Guest\CasiSuccesso;
+use App\Model\Repository\Guest\DatiLeve;
+use App\Model\Repository\Guest\StatisticheGuest;
+use App\Model\Repository\Main\Utenti;
+use App\Model\Repository\Main\UtentiDossier;
 use Yiisoft\Definitions\Reference;
 
 return [
@@ -30,6 +31,13 @@ return [
 
     CasiSuccesso::class => [
         'class' => CasiSuccesso::class,
+        '__construct()' => [
+            'db' => Reference::to('db.conai_guest'),
+        ],
+    ],
+
+    StatisticheGuest::class => [
+        'class' => StatisticheGuest::class,
         '__construct()' => [
             'db' => Reference::to('db.conai_guest'),
         ],

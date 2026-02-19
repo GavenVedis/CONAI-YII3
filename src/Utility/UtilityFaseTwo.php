@@ -2,7 +2,9 @@
 
 namespace App\Utility;
 
+use Safe\Exceptions\JsonException;
 use Yiisoft\Aliases\Aliases;
+use Yiisoft\Http\Status;
 
 class UtilityFaseTwo
 {
@@ -33,5 +35,17 @@ class UtilityFaseTwo
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         return 'data:image/' . $type . ';base64,' . base64_encode($data);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function responseAsJson($response, array $data) {
+        $response->getBody()->write(
+            \Safe\json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PARTIAL_OUTPUT_ON_ERROR)
+        );
+        return $response
+            ->withStatus(Status::OK)
+            ->withHeader('Content-Type', 'application/json');
     }
 }

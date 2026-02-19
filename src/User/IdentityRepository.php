@@ -2,9 +2,8 @@
 
 namespace App\User;
 
-use App\Model\Repository\UtentiDossier;
-use App\Model\Entity\UtentiDossierDTO;
-use App\Model\Repository\Utenti;
+use App\Model\Entity\Main\UtentiDossierDTO;
+use App\Model\Repository\Main\UtentiDossier;
 use Yiisoft\Auth\IdentityInterface;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 

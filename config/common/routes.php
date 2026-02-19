@@ -34,6 +34,14 @@ return [
         ->action([GuestController::class, 'successi'])
         ->name('guest/successi'),
 
+    Route::methods([Method::GET], '/guest/get-statistiche/{anno}')
+        ->action([GuestController::class, 'getStatistiche'])
+        ->name('guest/get-statistiche'),
+
+    Route::methods([Method::GET], '/guest/statistiche')
+        ->action([GuestController::class, 'statistiche'])
+        ->name('guest/statistiche'),
+
     Route::methods([Method::GET], '/guest/successo/{id}')
         ->action([GuestController::class, 'successo'])
         ->name('guest/successo'),
