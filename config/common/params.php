@@ -20,6 +20,15 @@ return [
         'aliases' => require __DIR__ . '/aliases.php',
     ],
 
+    'yiisoft/session' => [
+        'session' => [
+            'options' => [
+                'cookie_secure' => 0,
+            ],
+            'handler' => null,
+        ]
+    ],
+
     'yiisoft/view' => [
         'basePath' => null,
         'parameters' => [

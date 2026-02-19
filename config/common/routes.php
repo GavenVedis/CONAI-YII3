@@ -38,6 +38,14 @@ return [
         ->action([GuestController::class, 'successo'])
         ->name('guest/successo'),
 
+    Route::methods([Method::GET], '/share__{base64}')
+        ->action([GuestController::class, 'extract'])
+        ->name('guest/extract'),
+
+    Route::methods([Method::GET], '/guest/generaPdf/{id}')
+        ->action([GuestController::class, 'genera_pdf'])
+        ->name('guest/generaPdf'),
+
     Route::methods([Method::GET], '/leve-guest')
         ->action([LeveGuestController::class, 'index'])
         ->name('guest/leve'),

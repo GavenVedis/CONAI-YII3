@@ -1,16 +1,22 @@
 <?php
 namespace App\Model\Repository;
 
+use App\ApplicationParams;
 use App\Model\Entity\CasiSuccessoDTO;
 use App\Model\Entity\UtentiDossierDTO;
+use Yiisoft\Aliases\Aliases;
 use Yiisoft\Db\Connection\ConnectionInterface;
+use Yiisoft\Db\Exception\Exception;
+use Yiisoft\Db\Exception\InvalidConfigException;
 use Yiisoft\Db\Query\Query;
 
 class CasiSuccesso
 {
     public function __construct(
         private ConnectionInterface $db,
-        private DatiLeve $datiLeve
+        private DatiLeve $datiLeve,
+        private ApplicationParams $applicationParams,
+        private Aliases $aliases
     ) {}
 
     public function getPages(
@@ -234,7 +240,7 @@ class CasiSuccesso
                     if ($search_leva) {
                         if (!isset($leve[$leva_search])) {
                             $leve[$leva_search] = [
-                                'label' => $search_leva['descrizione'],
+                                'label' => $search_leva->descrizione,
                                 'selected' => $leva != '' && $leva_search == $leva,
                                 'num' => $this->getNumeroLeve($categoria, $anno_bando, $azienda, $materiale, $leva_search, $brand_prodotto)
                             ];
@@ -518,6 +524,108 @@ class CasiSuccesso
         }
 
         return $totale;
+    }
+
+    public function findById(int $id): ?array
+    {
+        return (new Query($this->db))
+            ->from('casi_successo')
+            ->where(['id' => $id])
+            ->one();
+    }
+
+    public function findByIdCaso(int $id_caso): ?array
+    {
+        return (new Query($this->db))
+            ->from('casi_successo')
+            ->where(['id_caso' => $id_caso])
+            ->one();
+    }
+
+    /**
+     * @throws InvalidConfigException
+     * @throws \Throwable
+     * @throws Exception
+     */
+    public function updateCasoSuccesso(int $id, string $field, string $save_path) {
+        $this->db->createCommand()
+            ->update('casi_successo', [$field => $save_path], ['id' => $id])
+            ->execute();
+    }
+
+    /**
+     * @throws InvalidConfigException
+     * @throws \Throwable
+     * @throws Exception
+     */
+    public function generaParametriCasoSuccesso(?int $id, string $tipo_id = 'id_guest')
+    {
+        if ($tipo_id == 'id_guest') {
+            $caso = $this->findById($id);
+        } else {
+            $caso = $this->findByIdCaso($id);
+        }
+        if ($caso) {
+            $caso = CasiSuccessoDTO::fromRow($caso);
+            if ($caso->product_image != null) {
+                if (str_contains($caso->product_image, 'http:') || str_contains($caso->product_image, 'https:')) {
+                    $percorso = $this->aliases->get($this->applicationParams->successDestination);
+                    $fileExtension = pathinfo($caso->product_image, PATHINFO_EXTENSION);
+                    $nome_file = "immagine_" . $id . "." . $fileExtension;
+                    $save_path = $percorso . $nome_file;
+                    if (file_exists($save_path)) {
+                        $this->updateCasoSuccesso($caso->id, 'product_image', $save_path);
+                    }
+                }
+            }
+            if ($caso->mps_image != null) {
+                if (str_contains($caso->mps_image, 'http:') || str_contains($caso->mps_image, 'https:')) {
+                    $percorso = $this->aliases->get($this->applicationParams->mpsSuccessDestination);
+                    $fileExtension = pathinfo($caso->mps_image, PATHINFO_EXTENSION);
+                    $nome_file = "mps_" . $id . "." . $fileExtension;
+                    $save_path = $percorso . $nome_file;
+                    if (file_exists($save_path)) {
+                        $this->updateCasoSuccesso($caso->id, 'mps_image', $save_path);
+                    }
+                }
+            }
+        }
+        if ($caso->impatti != null) {
+            $impatti_generati = json_decode($caso->impatti, true);
+            $benefici = [
+                [
+                    'label' => 'CO<sub>2</sub>',
+                    'altImage' => 'CO2',
+                    'id' => 0,
+                    'value' => [
+                        'prima' => ['class' => 'before-value-co2', 'value' => $impatti_generati['co2_prima'] ?? 0, 'color-background' => '#6abe46'],
+                        'dopo' => ['class' => 'after-value-co2', 'value' => $impatti_generati['co2_dopo'] ?? 0, 'color-background' => '#a3bf97']
+                    ],
+                    'img' => '@baseUrl/img/icon-co2.jpg'
+                ],
+                [
+                    'label' => 'Energia',
+                    'altImage' => 'Energia',
+                    'id' => 1,
+                    'value' => [
+                        'prima' => ['class' => 'before-value-ger', 'value' => $impatti_generati['ger_prima'] ?? 0, 'color-background' => '#fecd09'],
+                        'dopo' => ['class' => 'after-value-ger', 'value' => $impatti_generati['ger_dopo'] ?? 0, 'color-background' => '#d4c58a']
+                    ],
+                    'img' => '@baseUrl/img/icon-energia.jpg'
+                ],
+                [
+                    'label' => 'H<sub>2</sub>O',
+                    'altImage' => 'H2O',
+                    'id' => 2,
+                    'value' => [
+                        'prima' => ['class' => 'before-value-h2o', 'value' => $impatti_generati['h2o_prima'] ?? 0, 'color-background' => '#1a9fda'],
+                        'dopo' => ['class' => 'after-value-h2o', 'value' => $impatti_generati['h2o_dopo'] ?? 0, 'color-background' => '#6995a8']
+                    ],
+                    'img' => '@baseUrl/img/icon-h2o.jpg'
+                ]
+            ];
+        }
+        return array($caso, $benefici ?? null);
     }
 
 

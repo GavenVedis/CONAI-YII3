@@ -26,4 +26,12 @@ class UtilityFaseTwo
         }
 
     }
+
+    public function getBase64FromImage(string $img)
+    {
+        $path = $this->aliases->get('@public' . $img);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        return 'data:image/' . $type . ';base64,' . base64_encode($data);
+    }
 }

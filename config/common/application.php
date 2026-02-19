@@ -8,5 +8,8 @@ return [
     'name' => 'ECO TOOL CONAI',
     'nuova_homepage' => true,
     'chatbot' => false,
-    'conaiInfoMail' => 'ecotoolconai@conai.org'
+    'conaiInfoMail' => 'ecotoolconai@conai.org',
+    'successDestination' => "@public/success_images/",
+    'mpsSuccessDestination' => "@public/success_mps_images/",
+    'domainName' => getenv('DOMAIN_NAME') . '/'
 ];

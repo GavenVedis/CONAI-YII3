@@ -16,13 +16,6 @@ return [
     ApplicationParams::class => [
         '__construct()' => $params['application'],
     ],
-    SessionInterface::class => [
-        'class' => Session::class,
-        '__construct()' => [
-            $params['session']['options'] ?? [],
-            $params['session']['handler'] ?? null,
-        ],
-    ],
     IdentityRepositoryInterface::class => IdentityRepository::class,
     CurrentUser::class => [
         'withSession()' => [Reference::to(SessionInterface::class)]

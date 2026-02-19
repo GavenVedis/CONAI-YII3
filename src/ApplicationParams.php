@@ -13,6 +13,8 @@ final readonly class ApplicationParams
         public string $locale = 'en',
         public bool $nuova_homepage = true,
         public bool $chatbot = false,
-        public string $conaiInfoMail = ''
+        public string $conaiInfoMail = '',
+        public string $successDestination = '',
+        public string $domainName = ''
     ) {}
 }
