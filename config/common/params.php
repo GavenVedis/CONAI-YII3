@@ -61,5 +61,13 @@ return [
         'dsn' => new Dsn('mysql', getenv('DB_HOST'), getenv('DB_GUEST_NAME'), '3306', ['charset' => 'utf8mb4']),
         'username' => getenv('DB_GUEST_USERNAME'),
         'password' => getenv('DB_GUEST_PASSWORD'),
+    ],
+
+    'mailer' => [
+        'user' => 'noreply@ecotoolconai.org',
+        'psw' => 'koLn!sa5k%k19q#G',
+        'host' => 'authsmtp.securemail.pro',
+        'port' => '465',
+        'encr' => 'ssl'
     ]
 ];

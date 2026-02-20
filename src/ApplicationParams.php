@@ -18,6 +18,10 @@ final readonly class ApplicationParams
         public string $domainName = '',
         public bool $casi_successo = false,
         public string $uploadDestination = '',
-        public string $adminEmail = ''
+        public string $adminEmail = '',
+        public bool $enableMail = false,
+        public bool $enableRedirect = true,
+        public array $redirectEmail = ['ruggeri@studiolce.it'],
+        public string $fallbackEmail = 'ruggeri@studiolce.it',
     ) {}
 }

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Model\Repository\Main\Login;
-use App\Model\Repository\Main\UtentiDossier;
 use App\Utility\UtilityFaseTwo;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +10,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use Safe\Exceptions\JsonException;
 use Yiisoft\Aliases\Aliases;
-use Yiisoft\Router\CurrentRoute;
 use Yiisoft\User\CurrentUser;
 use Yiisoft\Yii\View\Renderer\ViewRenderer;
 
@@ -60,6 +58,21 @@ final readonly class DossierController
             ]);
     }
 
+    public function sendUsername(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
+    {
+        $params = $request->getParsedBody();
+        $mail = $params['mail'] ?? '';
+        $response = $this->responseFactory->createResponse();
+        if ($mail == '') {
+            $return_array['result'] = 'INVALID';
+            return $this->utilityFaseTwo->responseAsJson($response, $return_array);
+        }
+        $result = $this->login->checkMailExistance2($mail);
+        if ($result["existance"] == "OK") {
+            $this->login->sendUsername($mail, $result["username"]);
+        }
+        return $this->utilityFaseTwo->responseAsJson($response, $result);
+    }
     /**
      * @throws JsonException
      */

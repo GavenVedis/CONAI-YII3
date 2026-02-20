@@ -14,5 +14,9 @@ return [
     'domainName' => getenv('DOMAIN_NAME') . '/',
     'casi_successo' => true,
     'uploadDestination' => "@public/uploads/",
-    'adminEmail' => 'noreply@ecotoolconai.org'
+    'adminEmail' => 'noreply@ecotoolconai.org',
+    'enableMail' => true,
+    'enableRedirect' => true,
+    'redirectEmail' => ['ruggeri@studiolce.it'],
+    'fallbackEmail' => 'ruggeri@studiolce.it',
 ];

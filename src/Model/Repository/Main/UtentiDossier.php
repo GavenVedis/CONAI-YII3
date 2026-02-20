@@ -57,6 +57,29 @@ class UtentiDossier
                 ->from('Utenti')
                 ->where(['user' => $username])
                 ->one();
+            $azienda = (new Query($this->db))
+                ->from('aziende')
+                ->where(['id' => $user['id_azienda']])
+                ->one();
+        }
+        return $user ? UtentiDossierDTO::fromRow($user, $utenti ? $utenti['tipo_utente'] : 'USER', $user ? $this->getImmagineProfilo($user['utentedossier_id']) : null, $azienda ?? null) : null;
+    }
+
+    public function findByEmail(string $mail)
+    {
+        $user = (new Query($this->db))
+            ->from('UtentiDossier')
+            ->where(['email' => $mail])
+            ->one();
+        if ($user) {
+            $utenti = (new Query($this->db))
+                ->from('Utenti')
+                ->where(['user' => $user['username']])
+                ->one();
+            $azienda = (new Query($this->db))
+                ->from('aziende')
+                ->where(['id' => $user['id_azienda']])
+                ->one();
         }
         return $user ? UtentiDossierDTO::fromRow($user, $utenti ? $utenti['tipo_utente'] : 'USER', $user ? $this->getImmagineProfilo($user['utentedossier_id']) : null, $azienda ?? null) : null;
     }

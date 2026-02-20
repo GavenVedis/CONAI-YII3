@@ -65,4 +65,8 @@ return [
     Route::methods([Method::POST], '/dossier/checkUserExistance')
         ->action([DossierController::class, 'checkUserExistance'])
         ->name('dossier/checkUserExistance'),
+
+    Route::methods([Method::POST], '/dossier/send-username')
+        ->action([DossierController::class, 'sendUsername'])
+        ->name('dossier/send-username'),
 ];

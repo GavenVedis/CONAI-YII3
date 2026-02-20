@@ -145,7 +145,7 @@ $this->setTitle($applicationParams->name);
             if (mail !== '') {
                 $.ajax({
                     url: "/dossier/send-password",
-                    type: "POST", data: {mail: mail},
+                    type: "POST", data: {mail: mail, '_csrf': $('meta[name="csrf-token"]').attr('content')},
                     success: function (data) {
                         $("#loader-fpsw").css("display","none")
                         var result = JSON.parse(data);
@@ -180,10 +180,10 @@ $this->setTitle($applicationParams->name);
             var mail = $("#fuser-email").val();
             $.ajax({
                 url: "/dossier/send-username",
-                type: "POST", data: {mail: mail},
+                type: "POST", data: {mail: mail, '_csrf': $('meta[name="csrf-token"]').attr('content')},
                 success: function (data) {
                     $("#loader-fuser").css("display","none")
-                    var result = JSON.parse(data);
+                    var result = data;
                     $("#success-msg-user").fadeIn("slow");
                     setTimeout(function(){
                         location.reload();
