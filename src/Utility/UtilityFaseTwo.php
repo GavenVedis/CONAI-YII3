@@ -48,4 +48,25 @@ class UtilityFaseTwo
             ->withStatus(Status::OK)
             ->withHeader('Content-Type', 'application/json');
     }
+
+    public function generaPassword(int $pswLenght): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $newPass = '';
+
+        do {
+            $numBytes = ceil($pswLenght * 3 / 4);
+
+            $randomBytes = openssl_random_pseudo_bytes($numBytes);
+
+            $randomString = base64_encode($randomBytes);
+
+            $randomString = preg_replace("/[\/=+]/", "", $randomString);
+        } while (strlen($randomString) < $pswLenght);
+        for ($i = 0; $i < $pswLenght; $i++) {
+            $newPass .= $characters[ord($randomString[$i]) % $charactersLength];
+        }
+        return $newPass;
+    }
 }

@@ -60,7 +60,7 @@ class Login
         return $this->currentUser->login($identity);
     }
 
-    public function checkMailExistance2(string $mail)
+    public function checkMailExistance(string $mail)
     {
         $user = $this->utentiDossier->findByEmail($mail);
         return $user ? ["existance" => "OK", "username" => $user->username] : ["existance" => "NO_USER"];
@@ -88,8 +88,57 @@ R.I. ROMA - REA 888272
 HD;
         if ($this->applicationParams->enableMail) {
             $this->mailUtility->sendMail([$mail], $request_content, 'CONAI Ecotoolbox - Recupero Username', "text/html");
-        } else {
-            echo json_encode(['status' => 'OK', 'message' => $request_content]);
+        }
+    }
+
+    public function setNewPassword(string $username, string $newPass): bool
+    {
+        $encPass = md5($newPass);
+        $user = $this->utentiDossier->findByUsername($username);
+        if (!$user) {
+            return false;
+        }
+        if (!$this->utentiDossier->setPassword($user->utentedossier_id, $encPass)) {
+            return false;
+        }
+        $admin = $this->utenti->findByUsername($username);
+        if ($admin) {
+            if (!$this->utenti->setPassword($admin->utente_id, $encPass)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function sendNewPassword(string $mail, string $username, string $newPass)
+    {
+// 1) text content
+        $request_content = <<<HD
+<h2>Gentilissimo consorziato,</h2>
+<br />
+
+Qui di seguito sono indicati i vostri nuovi dati di accesso a seguito della vostra richiesta di recupero password.
+<br/><br/>
+        <b>Username: </b> $username<br/>
+        <b>Nuova Password: </b> $newPass<br/>
+      <br/>
+Ricordiamo gentilmente che è altamente consigliato modificare la password al vostro primo accesso.
+   <br/><br/>
+Ricordiamo che per qualsiasi informazione è possibile contattarci direttamente ai numeri 02.54044.242/256.
+   <br/><br/>
+        Cordiali Saluti
+   <br/><br/>
+Consorzio Nazionale Imballaggi - CONAI<br />
+Via Pompeo Litta, 5 - 20122 Milano<br />
+C.F. e P.IVA 05451271000<br />
+R.I. ROMA - REA 888272
+
+HD;
+
+        // mail send
+        // common settings for both regular and debug mail
+        if ($this->applicationParams->enableMail) {
+            $this->mailUtility->sendMail([$mail], $request_content, 'CONAI Ecotoolbox - Recupero Password', "text/html");
         }
     }
 }

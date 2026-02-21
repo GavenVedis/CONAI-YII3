@@ -62,11 +62,27 @@ return [
         ->action([DossierController::class, 'login'])
         ->name('dossier/login'),
 
+    Route::methods([Method::GET], '/dossier/register')
+        ->action([DossierController::class, 'register'])
+        ->name('dossier/register'),
+
+    Route::methods([Method::POST], '/dossier/createAccount')
+        ->action([DossierController::class, 'createAccount'])
+        ->name('dossier/createAccount'),
+
     Route::methods([Method::POST], '/dossier/checkUserExistance')
         ->action([DossierController::class, 'checkUserExistance'])
         ->name('dossier/checkUserExistance'),
 
+    Route::methods([Method::POST], '/dossier/checkRagioneSociale')
+        ->action([DossierController::class, 'checkRagioneSociale'])
+        ->name('dossier/checkRagioneSociale'),
+
     Route::methods([Method::POST], '/dossier/send-username')
         ->action([DossierController::class, 'sendUsername'])
         ->name('dossier/send-username'),
+
+    Route::methods([Method::POST], '/dossier/send-password')
+        ->action([DossierController::class, 'sendPassword'])
+        ->name('dossier/send-password'),
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Repository\Main\Aziende;
 use App\Model\Repository\Main\Login;
 use App\Utility\UtilityFaseTwo;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -21,7 +22,8 @@ final readonly class DossierController
         private CurrentUser $currentUser,
         private UtilityFaseTwo $utilityFaseTwo,
         private ResponseFactoryInterface $responseFactory,
-        private Login $login
+        private Login $login,
+        private Aziende $aziende
     ) {
     }
 
@@ -58,6 +60,37 @@ final readonly class DossierController
             ]);
     }
 
+    public function register(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
+    {
+        return $this->viewRenderer
+            ->render($this->aliases->get('@view/Dossier/register'), []);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function sendPassword(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
+    {
+        $params = $request->getParsedBody();
+        $mail = $params['mail'] ?? '';
+        $response = $this->responseFactory->createResponse();
+        if ($mail == '') {
+            $return_array['result'] = 'INVALID';
+            return $this->utilityFaseTwo->responseAsJson($response, $return_array);
+        }
+        $result = $this->login->checkMailExistance($mail);
+        if ($result["existance"] == "OK") {
+            $newPass = $this->utilityFaseTwo->generaPassword(8);
+
+            $this->login->setNewPassword($result["username"], $newPass);
+            $this->login->sendNewPassword($mail, $result["username"], $newPass);
+        }
+        return $this->utilityFaseTwo->responseAsJson($response, $result);
+    }
+
+    /**
+     * @throws JsonException
+     */
     public function sendUsername(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
     {
         $params = $request->getParsedBody();
@@ -67,7 +100,7 @@ final readonly class DossierController
             $return_array['result'] = 'INVALID';
             return $this->utilityFaseTwo->responseAsJson($response, $return_array);
         }
-        $result = $this->login->checkMailExistance2($mail);
+        $result = $this->login->checkMailExistance($mail);
         if ($result["existance"] == "OK") {
             $this->login->sendUsername($mail, $result["username"]);
         }
@@ -103,6 +136,38 @@ final readonly class DossierController
         return $this->utilityFaseTwo->responseAsJson($response, $return_array);
     }
 
+    public function checkRagioneSociale(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
+    {
+        $params = $request->getParsedBody();
 
+        $piva = $params['piva'] ?? '';
+        $check_azienda = $params['check_azienda'] ?? false;
+        $ragione_sociale = $params['ragione_sociale'] ?? '';
+        $response = $this->responseFactory->createResponse();
+        if ($piva) {
+            $azienda = $this->aziende->findByPiva($piva);
+            if ($azienda) {
+                if ($check_azienda && $ragione_sociale) {
+                    return $this->utilityFaseTwo->responseAsJson(
+                        $response,
+                        ['status' => $ragione_sociale == $azienda->ragione_sociale ? 'OK' : 'KO']
+                    );
+                }
+            } else {
+                if ($check_azienda) {
+                    return $this->utilityFaseTwo->responseAsJson($response, ['status' => 'OK']);
+                }
+                return $this->utilityFaseTwo->responseAsJson($response, ['ragione_sociale' => '']);
+            }
+            return $this->utilityFaseTwo->responseAsJson($response, ['ragione_sociale' => $azienda->ragione_sociale]);
+        }
+        return $this->utilityFaseTwo->responseAsJson($response, ['ragione_sociale' => '']);
+    }
 
+    public function createAccount(ServerRequestInterface $request, LoggerInterface $logger): ResponseInterface
+    {
+        $params = $request->getParsedBody();
+        var_dump($params);
+        die();
+    }
 }

@@ -148,7 +148,7 @@ $this->setTitle($applicationParams->name);
                     type: "POST", data: {mail: mail, '_csrf': $('meta[name="csrf-token"]').attr('content')},
                     success: function (data) {
                         $("#loader-fpsw").css("display","none")
-                        var result = JSON.parse(data);
+                        var result = data;
                         switch (result) {
                             case "NO_USER":
                                 $("#error-msg").fadeIn("slow");
